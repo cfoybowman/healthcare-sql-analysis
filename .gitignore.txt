@@ -1,0 +1,13 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+
+# Python cache if added later
+__pycache__/
+
+# Optional: ignore large raw files if you do not want to upload them
+# data/*.csv
