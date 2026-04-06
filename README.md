@@ -1,187 +1,112 @@
-# 🏥 Healthcare Provider Services SQL Analysis
+# 🏥 Healthcare Hospitalization Analysis  
+### SQL Data Warehouse & Analytics Project
+
+---
 
 ## 📌 Project Overview
 
-This project analyzes U.S. healthcare system strain using CDC hospitalization data. The objective is to evaluate trends in COVID-19 admissions, ICU utilization, and inpatient bed occupancy across regions over time.
+This project focuses on designing and implementing a structured SQL-based data warehouse to analyze weekly COVID-19 hospitalization data across U.S. regions.  
 
-The project simulates a real-world analytics pipeline by implementing a structured data model with staging, dimension, and fact tables in PostgreSQL, followed by advanced SQL analysis using joins, aggregations, CTEs, and window functions.
-
----
-
-## 🎯 Business Objectives
-
-* Identify which regions experienced the highest healthcare system strain
-* Analyze trends in hospital admissions over time
-* Measure ICU and inpatient bed utilization levels
-* Detect peak stress periods across the healthcare system
-* Compare regional performance using standardized metrics
+The goal was to transform raw CDC data into a clean, queryable format and generate insights related to hospital admissions, ICU utilization, and overall healthcare system strain.
 
 ---
 
-## 🗂️ Data Source
+## 🧠 Objectives
 
-* CDC Weekly U.S. Hospitalization Metrics (Jurisdiction-Level)
-
----
-
-## 🏗️ Data Architecture
-
-This project follows a **star schema design**:
-
-### 🔹 Staging Layer
-
-* `stg_cdc_weekly_hospitalization`
-* Raw CDC data stored as TEXT for flexible ingestion and transformation
-
-### 🔹 Dimension Tables
-
-* `dim_region` → Region classification (Region 1–10, United States)
-* `dim_date` → Calendar attributes (year, month, quarter)
-
-### 🔹 Fact Table
-
-* `fact_weekly_hospitalization`
-* Contains key metrics:
-
-  * Admissions
-  * ICU utilization
-  * Bed occupancy
-  * Weekly trends
+- Build a structured data model for healthcare analytics  
+- Clean and transform raw hospitalization data  
+- Analyze trends in admissions and ICU utilization  
+- Identify periods of high healthcare system stress  
+- Demonstrate advanced SQL techniques (joins, aggregations, CTEs, window functions)
 
 ---
 
-## ⚙️ Key SQL Techniques Used
+## 🏗️ Data Model
 
-* Joins (fact-to-dimension relationships)
-* Aggregations (SUM, AVG, GROUP BY)
-* Common Table Expressions (CTEs)
-* Window Functions (LAG, RANK, moving averages)
-* Data Cleaning (NULL handling, string-to-numeric conversion)
+The data warehouse follows a dimensional modeling approach:
 
----
-
-# 📊 Featured Queries
-
-Below are the core analytical queries used to evaluate healthcare system performance.
+- **Staging Layer:** Raw CDC data stored as text for flexible ingestion  
+- **Dimension Tables:**  
+  - `dim_region` → regional classifications  
+  - `dim_date` → time-based attributes  
+- **Fact Table:**  
+  - `fact_weekly_hospitalization` → weekly metrics by region and date  
 
 ---
 
-## 📈 1. Weekly Admissions Trend by Region
+## 📊 Visual Analysis
 
-Tracks how COVID-19 hospital admissions change over time across regions, helping identify surges and declines.
-
----
-
-## 🏥 2. Total Admissions by Region
-
-Aggregates total confirmed admissions to compare overall healthcare burden across regions.
+### Data Model
+![Schema](images/sql_schema_diagram.png)
 
 ---
 
-## 🧠 3. Average ICU Burden by Region
+### Total Confirmed COVID Admissions by Region
+![Admissions](images/total_admissions_by_region.png)
 
-Measures ICU utilization rates to highlight regions experiencing sustained critical care pressure.
-
----
-
-## 📊 4. Average Inpatient Bed Occupancy
-
-Evaluates how full hospitals were on average, indicating system capacity constraints.
+**Insight:**  
+Regions show significant variation in total admissions, with certain regions experiencing substantially higher healthcare demand.
 
 ---
 
-## ⚠️ 5. Peak Hospitalization Week by Region
+### Average ICU Utilization (%) by Region
+![ICU](images/average_icu_burden_by_region.png)
 
-Uses ranking (CTE + window function) to identify the highest hospitalization week per region.
-
----
-
-## 📅 6. Monthly Admissions Trend
-
-Rolls weekly data into monthly totals to analyze broader trends and reduce short-term volatility.
+**Insight:**  
+ICU utilization varies across regions, highlighting differences in healthcare system strain and capacity.
 
 ---
 
-## 🔄 7. 4-Week Moving Average of Admissions
+### Highest Stress Weeks Across Regions
+![Stress](images/highest_stress_weeks_table.png)
 
-Applies a rolling average to smooth fluctuations and reveal underlying trends.
-
----
-
-## 📉 8. Week-over-Week Change in Admissions
-
-Uses `LAG()` to calculate weekly changes, helping detect rapid increases or declines.
+**Insight:**  
+Periods of highest stress are driven by a combination of high inpatient bed occupancy and ICU utilization, indicating peak system strain.
 
 ---
 
-## 🏆 9. Region with Highest Average Bed Occupancy
+## 🧪 Key SQL Techniques
 
-Identifies which regions consistently operated closest to capacity.
+This project demonstrates:
 
----
-
-## 🔥 10. Highest Stress Weeks Across Regions
-
-Creates a composite **stress score** using ICU utilization and bed occupancy to identify peak strain periods.
-
----
-
-## 💡 Key Insights
-
-* Regions experienced distinct waves of hospitalization rather than uniform trends
-* ICU utilization and bed occupancy strongly correlate during peak periods
-* Moving averages reveal sustained pressure rather than isolated spikes
-* Peak stress periods can be identified using composite metrics and ranking logic
+- Multi-table joins across fact and dimension tables  
+- Aggregations for regional comparisons  
+- Common Table Expressions (CTEs)  
+- Window functions (RANK, LAG, moving averages)  
+- Time-based trend analysis  
 
 ---
 
-## 🚀 Tools & Technologies
+## 🛠️ Tools & Technologies
 
-* PostgreSQL
-* SQL (CTEs, Window Functions, Aggregations)
-* CDC Public Health Data
+- PostgreSQL  
+- SQL  
+- Excel (for visualization)  
+- Data Modeling (Star Schema)
 
 ---
 
 ## 📁 Project Structure
 
-```
-healthcare-sql-analysis/
-│
-├── data/
-│   └── cdc_weekly_hospitalization_raw.csv
-│
-├── sql/
-│   ├── 01_create_schemas.sql
-│   ├── 02_staging_tables.sql
-│   ├── 03_dimension_tables.sql
-│   ├── 04_fact_table.sql
-│   ├── 05_load_staging.sql
-│   ├── 06_transform_load_fact.sql
-│   └── 07_analysis_queries.sql
-│
-├── .gitignore
-└── README.md
-```
+    01_create_schemas.sql
+    02_staging_tables.sql
+    03_dimension_tables.sql
+    04_fact_table.sql
+    07_analysis_queries.sql
+    images/
 
 ---
 
-## 💡 Why This Project Stands Out
+## 🚀 Key Takeaways
 
-This project demonstrates:
-
-* End-to-end SQL pipeline development
-* Real-world data modeling (fact + dimension design)
-* Advanced analytical SQL techniques
-* Business-focused insights from healthcare data
+- Built a scalable SQL data model for healthcare analytics  
+- Transformed raw data into structured insights  
+- Identified regional disparities in hospital utilization  
+- Highlighted peak stress periods in the healthcare system  
 
 ---
 
-## 🔗 Future Enhancements
+## 🔗 Author
 
-* Add state-level dataset for deeper geographic analysis
-* Integrate population data for per-capita metrics
-* Build interactive dashboard in Tableau or Power BI
-* Automate data pipeline for scheduled updates
-
----
+**Christina Foy-Bowman**  
+Data Analyst
