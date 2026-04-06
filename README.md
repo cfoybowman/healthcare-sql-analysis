@@ -37,7 +37,7 @@ The data warehouse follows a dimensional modeling approach:
 ## 📊 Visual Analysis
 
 ### Data Model
-![Schema](images/sql_schema_diagram.png)
+![Schema](images/sql_schema_diagram.jpg)
 
 ---
 
